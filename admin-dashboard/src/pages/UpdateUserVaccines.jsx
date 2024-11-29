@@ -15,6 +15,7 @@ const UpdateVaccineData = () => {
     healthPostName: "",
   });
 
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -25,27 +26,55 @@ const UpdateVaccineData = () => {
     });
   };
 
+  const validateForm = () => {
+    const formErrors = {};
+
+    // Regular expression to validate batch number (only alphanumeric characters)
+    const batchNumberRegex = /^[a-zA-Z0-9]+$/;
+
+    if (!formData.citizenshipNo) formErrors.citizenshipNo = "Citizenship No. is required";
+    if (!formData.dateOfBirth) formErrors.dateOfBirth = "Date of Birth is required";
+    if (!formData.vaccineName) formErrors.vaccineName = "Vaccine Name is required";
+    if (!formData.vaccinationDate) formErrors.vaccinationDate = "Vaccination Date is required";
+    if (!formData.batchNumber) formErrors.batchNumber = "Batch Number is required";
+    else if (!batchNumberRegex.test(formData.batchNumber)) {
+      formErrors.batchNumber = "Batch Number must be alphanumeric";
+    }
+    if (!formData.district) formErrors.district = "District is required";
+    if (!formData.province) formErrors.province = "Province is required";
+    if (!formData.localBody) formErrors.localBody = "Local Body is required";
+    if (!formData.healthPostName) formErrors.healthPostName = "Health Post Name is required";
+
+    return formErrors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch("/api/vaccine-data", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    const formErrors = validateForm();
+    setErrors(formErrors);
 
-      if (response.ok) {
-        alert("Vaccine data updated successfully");
-        navigate("/dashboard");
-      } else {
-        alert("Failed to update vaccine data");
+    // If there are no errors, submit the form
+    if (Object.keys(formErrors).length === 0) {
+      try {
+        const response = await fetch("/api/vaccine-data", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          alert("Vaccine data updated successfully");
+          navigate("/dashboard");
+        } else {
+          alert("Failed to update vaccine data");
+        }
+      } catch (err) {
+        console.error("Error updating vaccine data:", err);
+        alert("An error occurred. Please try again.");
       }
-    } catch (err) {
-      console.error("Error updating vaccine data:", err);
-      alert("An error occurred. Please try again.");
     }
   };
 
@@ -67,9 +96,13 @@ const UpdateVaccineData = () => {
                   name="citizenshipNo"
                   value={formData.citizenshipNo}
                   onChange={handleChange}
-                  className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                  required
+                  className={`p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 ${
+                    errors.citizenshipNo ? "border-red-500" : ""
+                  }`}
                 />
+                {errors.citizenshipNo && (
+                  <span className="text-red-500 text-xs">{errors.citizenshipNo}</span>
+                )}
               </div>
 
               {/* Date of Birth */}
@@ -80,9 +113,13 @@ const UpdateVaccineData = () => {
                   name="dateOfBirth"
                   value={formData.dateOfBirth}
                   onChange={handleChange}
-                  className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                  required
+                  className={`p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 ${
+                    errors.dateOfBirth ? "border-red-500" : ""
+                  }`}
                 />
+                {errors.dateOfBirth && (
+                  <span className="text-red-500 text-xs">{errors.dateOfBirth}</span>
+                )}
               </div>
 
               {/* Vaccine Name */}
@@ -93,9 +130,13 @@ const UpdateVaccineData = () => {
                   name="vaccineName"
                   value={formData.vaccineName}
                   onChange={handleChange}
-                  className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                  required
+                  className={`p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 ${
+                    errors.vaccineName ? "border-red-500" : ""
+                  }`}
                 />
+                {errors.vaccineName && (
+                  <span className="text-red-500 text-xs">{errors.vaccineName}</span>
+                )}
               </div>
 
               {/* Vaccination Date */}
@@ -106,9 +147,13 @@ const UpdateVaccineData = () => {
                   name="vaccinationDate"
                   value={formData.vaccinationDate}
                   onChange={handleChange}
-                  className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                  required
+                  className={`p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 ${
+                    errors.vaccinationDate ? "border-red-500" : ""
+                  }`}
                 />
+                {errors.vaccinationDate && (
+                  <span className="text-red-500 text-xs">{errors.vaccinationDate}</span>
+                )}
               </div>
 
               {/* Batch Number */}
@@ -119,9 +164,13 @@ const UpdateVaccineData = () => {
                   name="batchNumber"
                   value={formData.batchNumber}
                   onChange={handleChange}
-                  className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                  required
+                  className={`p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 ${
+                    errors.batchNumber ? "border-red-500" : ""
+                  }`}
                 />
+                {errors.batchNumber && (
+                  <span className="text-red-500 text-xs">{errors.batchNumber}</span>
+                )}
               </div>
 
               {/* District */}
@@ -132,9 +181,13 @@ const UpdateVaccineData = () => {
                   name="district"
                   value={formData.district}
                   onChange={handleChange}
-                  className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                  required
+                  className={`p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 ${
+                    errors.district ? "border-red-500" : ""
+                  }`}
                 />
+                {errors.district && (
+                  <span className="text-red-500 text-xs">{errors.district}</span>
+                )}
               </div>
 
               {/* Province */}
@@ -145,9 +198,13 @@ const UpdateVaccineData = () => {
                   name="province"
                   value={formData.province}
                   onChange={handleChange}
-                  className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                  required
+                  className={`p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 ${
+                    errors.province ? "border-red-500" : ""
+                  }`}
                 />
+                {errors.province && (
+                  <span className="text-red-500 text-xs">{errors.province}</span>
+                )}
               </div>
 
               {/* Local Body */}
@@ -158,9 +215,13 @@ const UpdateVaccineData = () => {
                   name="localBody"
                   value={formData.localBody}
                   onChange={handleChange}
-                  className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                  required
+                  className={`p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 ${
+                    errors.localBody ? "border-red-500" : ""
+                  }`}
                 />
+                {errors.localBody && (
+                  <span className="text-red-500 text-xs">{errors.localBody}</span>
+                )}
               </div>
 
               {/* Health Post Name */}
@@ -171,9 +232,13 @@ const UpdateVaccineData = () => {
                   name="healthPostName"
                   value={formData.healthPostName}
                   onChange={handleChange}
-                  className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                  required
+                  className={`p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600 ${
+                    errors.healthPostName ? "border-red-500" : ""
+                  }`}
                 />
+                {errors.healthPostName && (
+                  <span className="text-red-500 text-xs">{errors.healthPostName}</span>
+                )}
               </div>
             </div>
 

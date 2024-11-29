@@ -7,6 +7,9 @@ const vaccineRoutes = require("./routes/vaccineRoutes");
 const app = express();
 app.use(express.json());
 
+const cors = require("cors");
+app.use(cors());
+
 const mongoURI = process.env.MONGODB_URI;
 
 mongoose
