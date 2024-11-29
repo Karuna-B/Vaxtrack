@@ -66,7 +66,7 @@ const VaccineChannelChart = () => {
               }}
               cursor={{ fill: "rgba(75,85,99,0.2)" }}
             />
-            <Legend content={<div />} />
+            <Legend content={null} />
             {/* Bars with Dynamic Colors */}
             <Bar dataKey="value" radius={[8, 8, 0, 0]}>
               {VACCINE_CHANNEL_DATA.map((entry, index) => (

@@ -41,29 +41,25 @@ const VaccineOverviewChart = () => {
         <ResponsiveContainer>
           <LineChart data={vaccineData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#4B5563" />
-
             <XAxis
-              tick={{ fill: "", fontSize: 13 }}
-              dataKey={"name"}
+              tick={{ fill: "#9ca3af", fontSize: 13 }}
+              dataKey="name"
               stroke="#9ca3af"
             />
-            <YAxis tick={{ fill: "", fontSize: 13 }} stroke="#9ca3af" />
+            <YAxis tick={{ fill: "#9ca3af", fontSize: 13 }} stroke="#9ca3af" />
             <Tooltip
               contentStyle={{
-                backgroundColor: " rgba(31,41,55,0.8)",
+                backgroundColor: "rgba(31,41,55,0.8)",
                 borderColor: "#4B5563",
               }}
-              itemStyle={{
-                color: "#E5E7EB",
-              }}
+              itemStyle={{ color: "#E5E7EB" }}
             />
             <Line
               type="monotone"
               dataKey="vaccines"
               stroke="#3B82FF"
-              stokeWidth={6}
-              data={{ fill: "#6366F1", strokeWidth: 6, r: 6 }}
-              activeDot={{ r: 8, strokeWidth: 6 }}
+              strokeWidth={4}
+              activeDot={{ r: 8, strokeWidth: 4 }}
             />
           </LineChart>
         </ResponsiveContainer>
