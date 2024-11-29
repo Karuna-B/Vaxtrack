@@ -4,6 +4,8 @@ import Overview from "./pages/Overview";
 import './index.css';
 import Users from "./pages/Users";
 import Sidebar from "./components/Sidebar";
+import AddUser from "./pages/AddUser";
+import UpdateUserVaccines from './pages/UpdateUserVaccines/'
 
 const App = () => {
   return (
@@ -14,10 +16,12 @@ const App = () => {
         <div className="absolute inset-0 backdrop-blur-sm" />
       </div>
 
-      <Sidebar/>
+      <Sidebar />
       <Routes>
         <Route path="/" element={<Overview />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/adduser" element={<AddUser  />}/>
+        <Route path='/updateuser' element={<UpdateUserVaccines/>}/>
       </Routes>
     </div>
   );
