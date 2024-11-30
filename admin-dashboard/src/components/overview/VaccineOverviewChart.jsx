@@ -28,7 +28,7 @@ const vaccineData = [
 const VaccineOverviewChart = () => {
   return (
     <motion.div
-      className="bg-gray-300 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-400"
+      className="bg-gray-300 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-400"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
@@ -42,11 +42,11 @@ const VaccineOverviewChart = () => {
           <LineChart data={vaccineData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#4B5563" />
             <XAxis
-              tick={{ fill: "#9ca3af", fontSize: 13 }}
+              tick={{ fill: "black", fontSize: 13 }}
               dataKey="name"
               stroke="#9ca3af"
             />
-            <YAxis tick={{ fill: "#9ca3af", fontSize: 13 }} stroke="#9ca3af" />
+            <YAxis tick={{ fill: "black", fontSize: 13 }} stroke="#9ca3af" />
             <Tooltip
               contentStyle={{
                 backgroundColor: "rgba(31,41,55,0.8)",

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const vaccineSchema = new mongoose.Schema({
   vaccineName: {
@@ -31,4 +31,6 @@ const vaccineSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Vaccine", vaccineSchema);
+const Vaccine = mongoose.model("Vaccine", vaccineSchema);
+
+export default Vaccine;

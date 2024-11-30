@@ -1,17 +1,22 @@
-const express = require("express");
-const router = express.Router();
-const userController = require("../controllers/userController"); 
+import express from "express";
+import {
+  createUser,
+  getAllUsers,
+  addVaccineToUser,
+  deleteUser,
+} from "../controllers/userController.js";
 
+const router = express.Router();
 // Route to create a new user
-router.post("/", userController.createUser);
+router.post("/create", createUser);
 
 // Route to get all users
-router.get("/", userController.getAllUsers);
+router.get("/", getAllUsers);
 
 // Route to add a vaccine to a user
-router.put("/:userId/vaccines", userController.addVaccineToUser);
+router.put("/:userId/vaccines", addVaccineToUser);
 
 // Route to delete a user
-router.delete("/:userId", userController.deleteUser);
+router.delete("/delete/:userId", deleteUser);
 
-module.exports = router;
+export default router;

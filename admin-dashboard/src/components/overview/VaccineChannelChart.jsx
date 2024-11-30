@@ -24,7 +24,7 @@ const VACCINE_CHANNEL_DATA = [
 const VaccineChannelChart = () => {
   return (
     <motion.div
-      className="bg-gray-300 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-400"
+      className="bg-gray-300  backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-400"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.44 }}
@@ -66,7 +66,7 @@ const VaccineChannelChart = () => {
               }}
               cursor={{ fill: "rgba(75,85,99,0.2)" }}
             />
-            <Legend content={null} />
+            {/* <Legend content={null} /> */}
             {/* Bars with Dynamic Colors */}
             <Bar dataKey="value" radius={[8, 8, 0, 0]}>
               {VACCINE_CHANNEL_DATA.map((entry, index) => (

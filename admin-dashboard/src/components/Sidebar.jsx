@@ -32,7 +32,7 @@ const Sidebar = () => {
         </motion.button>
 
         {/* Navigation Links */}
-        <nav className="mt-8 flex-grow">
+        <nav className="mt-8 flex-grow ">
           {SIDEBAR_ITEMS.map((item) => (
             <Link key={item.path} to={item.path}>
               <motion.div
@@ -40,7 +40,7 @@ const Sidebar = () => {
                 className="flex items-center gap-4 p-4 text-sm font-medium rounded-lg bg-gray-600 hover:bg-gray-700 transition-colors mb-2"
               >
                 <item.icon
-                  size={isSidebarOpen ? 28 : 22} // Adjust icon size for smaller screens
+                  size={isSidebarOpen ? 28 : 22} 
                   style={{
                     color: item.color,
                     minWidth: isSidebarOpen ? "28px" : "22px",

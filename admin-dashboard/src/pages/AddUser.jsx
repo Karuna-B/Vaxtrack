@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // for redirection after form submission
+import { useNavigate } from "react-router-dom";
+import axios from "axios"; // Import axios directly
 import Header from "../components/common/Header";
+import { backendUrl } from "../App";
 
 const AddUser = () => {
   const [formData, setFormData] = useState({
@@ -63,19 +65,14 @@ const AddUser = () => {
     const formErrors = validateForm();
     setErrors(formErrors);
 
-    // If no errors, submit form
+    
     if (Object.keys(formErrors).length === 0) {
       try {
-        const response = await fetch("/api/users", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
+        const response = await axios.post(backendUrl + "/users", formData);
+        console.log(response);
 
-        if (response.ok) {
-          navigate("/users");
+        if (response.status === 201) {
+          navigate("/overview"); 
         } else {
           alert("Failed to create user");
         }
@@ -219,7 +216,7 @@ const AddUser = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="p-2  border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                  className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
                   placeholder="example@mail.com"
                 />
                 {errors.email && (

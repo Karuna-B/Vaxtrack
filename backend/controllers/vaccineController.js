@@ -1,4 +1,5 @@
-const Vaccine = require("../models/vaccines");
+
+import  Vaccine from "../models/vaccines.js";
 
 // Route to create a new vaccine
 const createVaccine = async (req, res) => {
@@ -13,7 +14,6 @@ const createVaccine = async (req, res) => {
   } = req.body;
 
   try {
-    // Log the request body to ensure it is being passed correctly
     console.log("Received Vaccine Data:", req.body);
 
     // Create a new vaccine document
@@ -33,18 +33,14 @@ const createVaccine = async (req, res) => {
     // Log the saved vaccine for debugging purposes
     console.log("Saved Vaccine:", savedVaccine);
 
-    // Send back the saved vaccine object as response
     res.status(201).json(savedVaccine);
   } catch (error) {
-    // Log the error for debugging
     console.error("Error creating vaccine:", error);
 
-    // Send an error response
     res.status(400).json({ message: "Error creating vaccine", error });
   }
 };
 
-// Route to get all vaccines
 const getAllVaccines = async (req, res) => {
   try {
     const vaccines = await Vaccine.find();
@@ -54,4 +50,4 @@ const getAllVaccines = async (req, res) => {
   }
 };
 
-module.exports = { createVaccine, getAllVaccines };
+export { createVaccine, getAllVaccines };

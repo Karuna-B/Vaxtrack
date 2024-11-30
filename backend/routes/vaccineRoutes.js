@@ -1,11 +1,14 @@
-const express = require("express");
-const router = express.Router();
-const vaccineController = require("../controllers/vaccineController"); // Controller for vaccine-related operations
+import express from "express";
+import {
+  createVaccine,
+  getAllVaccines,
+} from "../controllers/vaccineController.js";
 
+const router = express.Router();
 // Route to create a new vaccine
-router.post("/", vaccineController.createVaccine);
+router.post("/", createVaccine);
 
 // Route to get all vaccines
-router.get("/", vaccineController.getAllVaccines);
+router.get("/", getAllVaccines);
 
-module.exports = router;
+export default router;

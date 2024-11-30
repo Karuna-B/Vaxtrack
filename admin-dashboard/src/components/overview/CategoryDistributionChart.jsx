@@ -32,7 +32,7 @@ const categoryData = [
 const CategoryDistributionChart = () => {
   return (
     <motion.div
-      className="bg-gray-300 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-400"
+      className="bg-gray-300  backdrop-blur-md shadow-lg rounded-xl p-6 border border-gray-400"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 }}
