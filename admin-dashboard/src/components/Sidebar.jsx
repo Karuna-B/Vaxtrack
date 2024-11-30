@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BarChart2, Menu, TrendingUp, User2, Users } from "lucide-react"; // Fixed import
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -11,7 +11,25 @@ const SIDEBAR_ITEMS = [
 ];
 
 const Sidebar = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // Determine the screen size and set the sidebar state
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsSidebarOpen(true); // Keep sidebar open on medium and larger screens
+      } else {
+        setIsSidebarOpen(false); // Sidebar starts closed on small screens
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <motion.div
@@ -32,7 +50,7 @@ const Sidebar = () => {
         </motion.button>
 
         {/* Navigation Links */}
-        <nav className="mt-8 flex-grow ">
+        <nav className="mt-8 flex-grow">
           {SIDEBAR_ITEMS.map((item) => (
             <Link key={item.path} to={item.path}>
               <motion.div

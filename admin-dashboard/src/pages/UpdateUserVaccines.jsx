@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/common/Header";
+import { backendUrl } from "../App";
+import axios from "axios";
 
 const UpdateVaccineData = () => {
   const [formData, setFormData] = useState({
@@ -57,13 +59,10 @@ const UpdateVaccineData = () => {
     // If there are no errors, submit the form
     if (Object.keys(formErrors).length === 0) {
       try {
-        const response = await fetch("/api/vaccine-data", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
+        const response = await axios.post(
+          `${backendUrl}/users/create`,
+          formData
+        );
 
         if (response.ok) {
           alert("Vaccine data updated successfully");

@@ -15,6 +15,7 @@ const AddUser = () => {
     birthCertificateNo: "",
     phoneNumber: "",
     email: "",
+    vaccinesIds: [],
   });
 
   const [errors, setErrors] = useState({});
@@ -58,27 +59,37 @@ const AddUser = () => {
       [name]: value,
     });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formErrors = validateForm();
     setErrors(formErrors);
 
-    
     if (Object.keys(formErrors).length === 0) {
       try {
-        const response = await axios.post(backendUrl + "/users", formData);
-        console.log(response);
+        console.log("Form data being sent:", formData); // Debugging
+        const response = await axios.post(
+          `${backendUrl}/users/create`,
+          formData
+        );
 
         if (response.status === 201) {
-          navigate("/overview"); 
+          alert("User Created")
+          navigate("/");
         } else {
-          alert("Failed to create user");
+          console.error("Unexpected response:", response);
+          alert("Failed to create user. Please try again.");
         }
       } catch (err) {
-        console.error("Error creating user:", err);
-        alert("An error occurred. Please try again.");
+        console.error(
+          "Error creating user:",
+          err.response?.data || err.message
+        );
+        if (err.response?.status === 400) {
+          alert("Validation error: " + err.response.data.message);
+        } else {
+          alert("An unexpected error occurred.");
+        }
       }
     }
   };
@@ -111,7 +122,16 @@ const AddUser = () => {
                   </span>
                 )}
               </div>
-
+              <div className="flex flex-col mb-2">
+                <label className="font-medium">Date Of Birth</label>
+                <input
+                  type="date"
+                  name="dateOfBirth" // Ensure this matches the field in `formData`
+                  value={formData.dateOfBirth}
+                  onChange={handleChange}
+                  className="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                />
+              </div>
               {/* Father's Name */}
               <div className="flex flex-col mb-2">
                 <label className="font-medium">Father's Name</label>
